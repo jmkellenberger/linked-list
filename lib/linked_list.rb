@@ -8,7 +8,7 @@ class Node
   end
 
   def to_s
-    "( #{@value} ) -> #{@next_node}"
+    "( #{@value} ) -> #{@next_node || 'nil'}"
   end
 end
 
@@ -23,7 +23,7 @@ class LinkedList
   end
 
   def to_s
-    "#{@head}nil"
+    @head.to_s
   end
 
   def each
@@ -34,6 +34,29 @@ class LinkedList
       yield node
       node = node.next_node
     end
+  end
+
+  def reverse
+    return nil if @head.nil?
+
+    new_list = LinkedList.new
+    each { |node| new_list.unshift(Node.new(node.value)) }
+    new_list
+  end
+
+  def reverse!
+    return if @head.nil?
+
+    tmp_head = shift
+    tmp_head.next_node = nil
+    @tail = tmp_head
+
+    until @head.nil?
+      node = shift
+      node.next_node = tmp_head
+      tmp_head = node
+    end
+    @head = tmp_head
   end
 
   def push(node)
@@ -139,3 +162,5 @@ range.each do |letter|
   puts "Adding #{letter} to list"
   puts new_list.size
 end
+
+puts new_list.reverse!
