@@ -14,7 +14,7 @@ end
 
 # Linked list data structure
 class LinkedList
-  attr_accessor :name
+  include Enumerable
   attr_reader :head, :tail
 
   def initialize
@@ -26,7 +26,17 @@ class LinkedList
     "#{@head}nil"
   end
 
-  def append(node)
+  def each
+    return nil if head.nil?
+
+    node = @head
+    until node.nil?
+      yield node
+      node = node.next_node
+    end
+  end
+
+  def push(node)
     if @head.nil?
       @head = node
     else
@@ -35,7 +45,7 @@ class LinkedList
     @tail = node
   end
 
-  def prepend(node)
+  def unshift(node)
     if @head.nil?
       @tail = node
     else
@@ -44,16 +54,20 @@ class LinkedList
     @head = node
   end
 
+  def shift
+    return nil if head.nil?
+
+    node = @head
+    @head = @head.next_node
+    node
+  end
+
   def size
     return 0 if @head.nil?
     return 1 if @head == @tail
 
     size = 0
-    node = @head
-    until node.nil?
-      node = node.next_node
-      size += 1
-    end
+    each { size += 1 }
     size
   end
 
@@ -121,7 +135,7 @@ new_list = LinkedList.new
 range = %w[A B C D E F G H I J K L M N O P]
 
 range.each do |letter|
-  new_list.append(Node.new(letter))
+  new_list.push(Node.new(letter))
   puts "Adding #{letter} to list"
-  puts new_list
+  puts new_list.size
 end
