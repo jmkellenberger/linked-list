@@ -1,4 +1,22 @@
+# Node in a linked list
+class Node
+  attr_accessor :value, :next_node
+
+  def initialize(value = nil, next_node = nil)
+    @value = value
+    @next_node = next_node
+  end
+end
+
+# Linked list data structure
 class LinkedList
+  attr_accessor :name, :head, :tail
+
+  def initialize
+    @head = nil
+    @tail = nil
+  end
+
   def to_s
     # Example: "( value ) -> ( value ) -> ( value ) -> nil"
   end
@@ -11,14 +29,6 @@ class LinkedList
     # adds a new node containing value to the start of the list
   end
 
-  def head
-    # returns the first node in the list
-  end
-
-  def tail
-    # returns the last node in the list
-  end
-
   def size
     # returns the total number of nodes in the list
   end
@@ -26,7 +36,7 @@ class LinkedList
   def at(index)
     # returns the node at the given index
   end
-  
+
   def pop
     # removes the last element from the list
   end
@@ -46,14 +56,5 @@ class LinkedList
   def remove_at(value, index)
     # that removes the node at the given index.
   end
-
 end
 
-class Node
-  attr_accessor :value, :next_node
-
-  def initialize(value, next_node)
-    @value = nil
-    @next_node = nil
-  end
-end
