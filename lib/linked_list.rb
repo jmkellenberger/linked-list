@@ -8,7 +8,7 @@ class Node
   end
 
   def to_s
-    @value.to_s
+    "( #{@value} ) -> #{@next_node}"
   end
 end
 
@@ -23,16 +23,7 @@ class LinkedList
   end
 
   def to_s
-    return 'nil' if @head.nil?
-
-    string = ''
-    node = @head
-    until node.nil?
-      string += "( #{node} ) -> "
-      node = node.next_node
-    end
-    string += 'nil'
-    string
+    "#{@head}nil"
   end
 
   def append(node)
@@ -123,4 +114,14 @@ class LinkedList
   def remove_at(node, index)
     # that removes the node at the given index.
   end
+end
+
+new_list = LinkedList.new
+
+range = %w[A B C D E F G H I J K L M N O P]
+
+range.each do |letter|
+  new_list.append(Node.new(letter))
+  puts "Adding #{letter} to list"
+  puts new_list
 end
